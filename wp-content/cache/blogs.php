@@ -1,0 +1,1 @@
+return array('www.cerkva.pp.ua' => 'm1', 'www.cerkva.pp.ua/robots.txt' => 'm1', 'cerkva.pp.ua/gvizd' => 'm2', 'cerkva.pp.ua' => 'm1');

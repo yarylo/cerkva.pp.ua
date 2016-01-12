@@ -1,0 +1,62 @@
+# BEGIN W3TC Minify cache
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^[_0-9a-zA-Z-]+/wp-content/cache/minify/[0-9]+/w3tc_rewrite_test$ /wp-content/plugins/w3-total-cache/pub/minify.php?w3tc_rewrite_test=1 [L]
+</IfModule>
+# END W3TC Minify cache
+# BEGIN W3TC Browser Cache
+<IfModule mod_deflate.c>
+<IfModule mod_headers.c>
+Header append Vary User-Agent env=!dont-vary
+</IfModule>
+AddOutputFilterByType DEFLATE text/css text/x-component application/x-javascript application/javascript text/javascript text/x-js text/html text/richtext image/svg+xml text/plain text/xsd text/xsl text/xml image/x-icon application/json
+<IfModule mod_mime.c>
+# DEFLATE by extension
+AddOutputFilter DEFLATE js css htm html xml
+</IfModule>
+</IfModule>
+# END W3TC Browser Cache
+# BEGIN W3TC Page Cache core
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteCond %{HTTP_USER_AGENT} (240x320|2\.0\ mmp|\bppc\b|acer\ s100|alcatel|amoi|android|archos5|asus|au\-mic|audiovox|avantgo|bada|bb10|benq|bird|blackberry|blackberry9500|blackberry9530|blackberry9550|blackberry\ 9800|blazer|cdm|cellphone|cupcake|danger|ddipocket|docomo|docomo\ ht\-03a|dopod|dream|elaine/3\.0|ericsson|eudoraweb|fly|froyo|googlebot-mobile|haier|hiptop|hp\.ipaq|htc|htc\ hero|htc\ magic|htc_dream|htc_magic|huawei|i\-mobile|iemobile|iemobile/7|iemobile/7.0|iemobile/9|incognito|ipad|iphone|ipod|j\-phone|kddi|kindle|konka|kwc|kyocera/wx310k|lenovo|lg|lg/u990|lg\-gw620|lge\ vx|liquid\ build|maemo|midp|midp\-2\.0|mmef20|mmp|mobilephone|mot\-mb200|mot\-mb300|mot\-v|motorola|msie\ 10\.0|netfront|newgen|newt|nexus\ 7|nexus\ one|nintendo\ ds|nintendo\ wii|nitro|nokia|novarra|o2|openweb|opera\ mini|opera\ mobi|opera\.mobi|p160u|palm|panasonic|pantech|pdxgw|pg|philips|phone|playbook|playstation\ portable|portalmmm|proxinet|psp|qtek|s8000|sagem|samsung|samsung\-s8000|sanyo|sch|sch\-i800|sec|sendo|series60.*webkit|series60/5\.0|sgh|sharp|sharp\-tq\-gx10|small|smartphone|softbank|sonyericsson|sonyericssone10|sonyericssonu20|sonyericssonx10|sph|symbian|symbian\ os|symbianos|t\-mobile\ mytouch\ 3g|t\-mobile\ opal|tattoo|toshiba|touch|treo|ts21i\-10|up\.browser|up\.link|uts|vertu|vodafone|wap|webmate|webos|willcome|windows\ ce|windows\.ce|winwap|xda|xoom|zte) [NC]
+RewriteRule .* - [E=W3TC_UA:_high]
+RewriteCond %{HTTP:Accept-Encoding} gzip
+RewriteRule .* - [E=W3TC_ENC:_gzip]
+RewriteCond %{HTTP_COOKIE} w3tc_preview [NC]
+RewriteRule .* - [E=W3TC_PREVIEW:_preview]
+RewriteCond %{REQUEST_METHOD} !=POST
+RewriteCond %{QUERY_STRING} =""
+RewriteCond %{HTTP_COOKIE} !(comment_author|wp\-postpass|w3tc_logged_out|wordpress_logged_in|wptouch_switch_toggle) [NC]
+RewriteCond "%{DOCUMENT_ROOT}/wp-content/cache/page_enhanced/%{HTTP_HOST}/%{REQUEST_URI}/_index%{ENV:W3TC_UA}%{ENV:W3TC_PREVIEW}.html%{ENV:W3TC_ENC}" -f
+RewriteRule .* "/wp-content/cache/page_enhanced/%{HTTP_HOST}/%{REQUEST_URI}/_index%{ENV:W3TC_UA}%{ENV:W3TC_PREVIEW}.html%{ENV:W3TC_ENC}" [L]
+</IfModule>
+# END W3TC Page Cache core
+# BEGIN WordPress
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+
+# add a trailing slash to /wp-admin
+RewriteRule ^([_0-9a-zA-Z-]+/)?wp-admin$ $1wp-admin/ [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^([_0-9a-zA-Z-]+/)?(wp-(content|admin|includes).*) $2 [L]
+RewriteRule ^([_0-9a-zA-Z-]+/)?(.*\.php)$ $2 [L]
+RewriteRule . index.php [L]
+ErrorDocument 404 /404
+# END WordPress
+#BEGIN Browser cache
+FileETag MTime Size
+<ifmodule mod_expires.c>
+<filesmatch "\.(jpg|gif|png|css|js)$">
+ExpiresActive on
+ExpiresDefault "access plus 1 year"
+</filesmatch>
+</ifmodule>
+#END Browser cache
+

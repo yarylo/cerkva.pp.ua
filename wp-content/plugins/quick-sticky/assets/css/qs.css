@@ -1,0 +1,42 @@
+/* 
+
+qs.css
+contents:
+		
+	1. Quick Sticky
+
+*/
+
+/* 1. Quick Sticky
+--------------------------------------------------------------------------------------- */
+
+th#sticky,
+td.sticky
+	{
+	width: 50px;
+	text-align: center;
+	}
+
+.icon-sticky
+	{
+	display: block; 
+	text-indent: -999em; 
+	overflow: hidden; 
+	background-repeat: no-repeat; 
+	text-align: left; 
+	direction: ltr; 
+	background: url(../images/icon-sticky.png) center 8px no-repeat;
+	padding: 5px;
+	}
+
+.icon-not-sticky
+	{
+	display: block; 
+	text-indent: -999em; 
+	overflow: hidden; 
+	background-repeat: no-repeat; 
+	text-align: left; 
+	direction: ltr; 
+	background: url(../images/icon-sticky.png) center -16px no-repeat;
+	padding: 5px;
+	}

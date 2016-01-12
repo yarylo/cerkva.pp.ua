@@ -1,0 +1,160 @@
+@CHARSET "UTF-8";
+
+#HYwpbody{
+	max-width: 900px;
+	padding: 15px 0;
+	}
+	
+#HYwpbody .logo{width: 100px;}
+#HYdisable{
+	margin: 10px 0;
+	padding: 10px;
+	color: #999;
+	background: white;
+	border-color: #00377B; 
+	}
+#wpbody #HYwpbody h1{
+	color: #00377B;	
+	padding-top: 30px;
+	padding-bottom: 12px;
+	margin-bottom: 11px;
+	border-bottom: 2px solid #666;
+	display: block;
+	}
+#wpbody #HYwpbody img.logo{
+	float: left;
+	margin-right: 22px;
+	background: white;
+	border: 2px solid #666;
+	border-radius: 4px;
+	}	
+#wpbody #HYwpbody .descr {
+	color: #666;
+	padding-top: 0;
+	margin-top: 0;
+	margin-bottom: 47px;
+	
+	height: auto:
+	}
+#wpbody #HYwpbody .descr-option {
+	color:  #999;
+	padding-top: 0;
+	margin-top: 0;
+	margin-bottom: 5px;
+	padding-left: 10px;
+	}
+#wpbody #HYwpbody form{
+	height: auto; 
+	}	
+#wpbody #HYwpbody form checkbox{ 
+	margin-bottom: 15px;  
+	float: left; 
+	}
+#wpbody #HYwpbody .wp-tab-bar p form submit{
+	float: left;
+	
+	}
+#wpbody #HYwpbody form span.span-count{
+	color: #999;
+	}
+#HYwpbody span.HYspan-posts-excluded{
+	color: #999;
+	font-weight: bold;
+	}
+#HYwpbody .wp-tab-panel h3{
+	font-size: 120%;
+	margin: 5px;
+	text-align: right;
+	width:100%;
+	display: block;
+	color : #00377B;
+}
+	
+	
+	
+/*************************************** Tabs */
+#wpbody #HYwpbody ul.wp-tab-bar {
+	float: left;
+	width: 120px;
+	text-align: right;
+	/* Negative margin for the sake of those without JS: all tabs display */
+	margin: 0 -120px 0 5px;
+	padding: 0;
+	}
+#wpbody #HYwpbody ul.wp-tab-bar li {
+	padding: 8px;
+	}
+#wpbody #HYwpbody ul.wp-tab-bar li.wp-tab-active {
+	background: #ececec;
+	
+	}
+#HYwpbody div.wp-tab-panel-active {
+	display:block;
+	}
+#HYwpbody div.wp-tab-panel-inactive {
+ 	display:none;
+	}
+#wpbody #HYwpbody div.wp-tab-panel {
+	margin: 0 5px 0 125px;
+	min-height: 200px; 
+	max-height: 600px;
+	height: auto;
+	display: block; 
+	 
+	}
+#HYwpbody .has-right-sidebar #side-sortables .wp-tab-bar li {
+	display: inline;
+	line-height: 1.35em;
+	}
+#HYwpbody .no-js #side-sortables .wp-tab-bar li.hide-if-no-js {
+ 	display: none;
+	}
+#HYwpbody #side-sortables .wp-tab-bar a {
+	text-decoration: none;
+	}
+#HYwpbody #side-sortables .wp-tab-bar {
+	margin: 8px 0 3px;
+	}
+#HYwpbody #side-sortables .wp-tab-bar {
+	margin-bottom: 3px;
+	}
+#wpbody #HYwpbody .wp-tab-bar li.wp-tab-active { 
+	margin-right: -1px;
+	
+	border-radius: 3px;
+	}
+#wpbody #HYwpbody ul.wp-tab-bar {
+	float: left;
+	width: 120px;
+	text-align: right;
+	/* Negative margin for the sake of those without JS: all tabs display */
+	margin: 0 -120px 0 5px;
+	padding: 0;
+	}
+#wpbody #HYwpbody ul.wp-tab-bar li {
+	padding: 8px;
+	display: block;
+	}
+#wpbody #HYwpbody ul.wp-tab-bar li a {
+	text-decoration: underline;
+	}
+#wpbody #HYwpbody ul.wp-tab-bar li.wp-tab-active {
+ 	 
+	}
+#wpbody #HYwpbody div.wp-tab-panel {
+	margin: 0 5px 0 125px;
+	
+	}
+#wpbody #HYwpbody div.wp-tab-panel form{
+	height: auto;
+	display: block;
+	overflow: visible;
+	/*border: 1px solid #ececec;*/
+	border-radius: 3px;
+	padding: 10px;
+}
+#wpbody #HYwpbody ul.wp-tab-bar li.wp-tab-active a {
+	font-weight: bold;
+	text-decoration: none;
+	} 
+	
