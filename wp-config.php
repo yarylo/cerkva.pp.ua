@@ -27,6 +27,7 @@ define('DB_USER', 'u311510689_cerkv');
 
 /** MySQL database password */
 define('DB_PASSWORD', 'cerkva2014');
+//define('DB_PASSWORD', 'cerkva2014');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
