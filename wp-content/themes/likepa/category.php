@@ -14,8 +14,8 @@ get_header(); ?>
 			<div id="content" role="main">
 
 			<?php if ( have_posts() ) : ?>
-
 				<header class="page-header">
+				
 					<h1 class="page-title"><?php
 						printf( __( 'Архів категорії: %s', 'likepa' ), '<span>' . single_cat_title( '', false ) . '</span>' );
 					?></h1>
@@ -28,9 +28,11 @@ get_header(); ?>
 				</header>
 
 				<?php likepa_content_nav( 'nav-above' ); ?>
+				<?php if(function_exists('sticky_slider')) { sticky_slider(); } ?>
 
 				<?php /* Start the Loop */ ?>
 				<?php while ( have_posts() ) : the_post(); ?>
+					<?php if ($_SESSION['unset_post'] > 0 &&  $_SESSION['unset_post'] != get_the_ID()) :?>
 
 					<?php
 						/* Include the Post-Format-specific template for the content.
@@ -38,6 +40,7 @@ get_header(); ?>
 						get_template_part( 'loop', get_post_format() );
 					?>
 
+					<?php endif; ?>
 				<?php endwhile; ?>
 
 				<?php likepa_pagination(); ?>

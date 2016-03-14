@@ -5264,12 +5264,11 @@ p.comment-form-comment {
 
 	.left-sidebar #tertiary{
 
-		width: 26.7%;
-
 		max-width: 280px;
 
 		min-width: 220px;
 
+		width: 26.7%;
 		margin-right: 0px;
 
 		padding-right: 10px;
@@ -6429,3 +6428,7 @@ p.comment-form-comment {
  @media (max-width: 1500px){
 	.gallery-columns-4 .attachment-thumbnail {width: 120px; height: 120px;}
 }
+
+#primary iframe {
+	width: 95%;
+} 

@@ -31,8 +31,7 @@ class PD_StickyPostsInCategory{
 	
 	function putStickyOnTop( $posts ){
 		global $wp_query;
-		$sticky_limit=0;
-		//if( function_exists( 'is_main_query' ) ){
+			//if( function_exists( 'is_main_query' ) ){
 			//we have wp version 3.3+
 			//if( is_category() && is_main_query() ){
 			

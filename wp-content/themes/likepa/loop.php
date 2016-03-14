@@ -7,6 +7,7 @@
  
 global $options;
 global $sticky_limit;
+$sticky_limit = 1;
 $options = get_option('likepa_theme_options');
 add_filter('post_class','jrh_post_names');
 

@@ -49,8 +49,15 @@ class NextendAccordionMenuWidget extends WP_Widget {
     }
 
 
-    function hideNextendAccordionMenu() {
-		$items = wp_get_nav_menu_items('main');
+    function hideNextendAccordionMenu($ID) {
+
+    	if (is_search() || is_date() || is_tag() )
+			return false;
+			
+		global $wpdb;
+		
+	    $m_name = $wpdb->get_var("SELECT `post_title` FROM `wp_posts` WHERE `ID` = '".$ID."' ");
+		$items = wp_get_nav_menu_items($m_name);
 		foreach ($items as $item) {
 			$menu_ids[]=$item->object_id;
 			$menu_parents[]=$item->post_parent;
@@ -88,7 +95,7 @@ class NextendAccordionMenuWidget extends WP_Widget {
 
     function widget($args, $instance) {
 		
-		if($this->hideNextendAccordionMenu()){
+		if($this->hideNextendAccordionMenu($instance['accordionmenu'])){
 			
 	        $title = apply_filters( 'widget_title', $instance['title'] );
 	
