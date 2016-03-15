@@ -118,7 +118,7 @@ function ConvertCategory($start=false){
 	global $wpdb;
 	if (!$start)
 		$start = 0;
-	$end = 100;
+	$end = 200;
 	$count_category = $wpdb->get_var("SELECT COUNT(*) FROM `categories` WHERE status > 0");
 
 	$categories = $wpdb->get_results("SELECT * FROM `categories` WHERE `status` > 0 ORDER BY `parent` ASC LIMIT $start , $end", 'ARRAY_A');
@@ -185,7 +185,7 @@ function ConvertPost($start=false){
 	global $wpdb;
 	if (!$start)
 		$start = 0;
-	$end = 100;
+	$end = 200;
 	$count_data = $wpdb->get_var("SELECT COUNT(*) FROM `data` WHERE status > 0");
 	$datas = $wpdb->get_results("SELECT * FROM `data` WHERE `status` > 0 ORDER BY `id` LIMIT $start , $end", 'ARRAY_A');
 	
@@ -209,10 +209,12 @@ function ConvertPost($start=false){
 			$categories = '';
 		}
 		
-		$post_content = $data['text'];
+		$post_content = $data['text'];		$post_excerpt = $data['description'];
 		
-	    if (!empty($post['small_ico']))
-	    	$post_content = '<img src="'.$post['small_ico'].'" align="left" />'.$post_content;
+	    if (!empty($data['small_ico'])) {
+	    	$post_content = '<img src="'.$data['small_ico'].'" align="left" />'.$post_content;
+	    	$post_excerpt = '<img src="'.$data['small_ico'].'" align="left" />'.$post_excerpt;	    	
+	    }
 		    	
 		$post_data = array(
 		  'post_title'    	=> $data['name'],
@@ -222,7 +224,7 @@ function ConvertPost($start=false){
 		  'post_type'      	=> $type,
 		  'post_status'   	=> 'publish',
 		  'post_author'   	=> 1,
-		  'post_excerpt'   	=> $data['description'],
+		  'post_excerpt'   	=> $post_excerpt,
 		  'post_category' 	=> (!empty($cat2))? array($cat1,$cat2) : array($cat1)
 		  
 		);
@@ -280,7 +282,7 @@ function postLink($start = false){
 	
 	if (!$start)
 		$start = 0;
-	$end = 100;
+	$end = 200;
 
 	$count_post = $wpdb->get_var("SELECT COUNT(*) FROM `wp_posts` WHERE `post_status` = 'publish' ");
 	$posts = $wpdb->get_results("SELECT `ID`, `post_title`, `post_content`, `post_excerpt` FROM `wp_posts` WHERE `post_status`  = 'publish' ORDER BY `ID` LIMIT $start , $end", 'ARRAY_A');
