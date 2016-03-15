@@ -118,7 +118,7 @@ function ConvertCategory($start=false){
 	global $wpdb;
 	if (!$start)
 		$start = 0;
-	$end = 50;
+	$end = 100;
 	$count_category = $wpdb->get_var("SELECT COUNT(*) FROM `categories` WHERE status > 0");
 
 	$categories = $wpdb->get_results("SELECT * FROM `categories` WHERE `status` > 0 ORDER BY `parent` ASC LIMIT $start , $end", 'ARRAY_A');
@@ -185,7 +185,7 @@ function ConvertPost($start=false){
 	global $wpdb;
 	if (!$start)
 		$start = 0;
-	$end = 50;
+	$end = 100;
 	$count_data = $wpdb->get_var("SELECT COUNT(*) FROM `data` WHERE status > 0");
 	$datas = $wpdb->get_results("SELECT * FROM `data` WHERE `status` > 0 ORDER BY `id` LIMIT $start , $end", 'ARRAY_A');
 	
@@ -208,9 +208,15 @@ function ConvertPost($start=false){
 			$type = 'page';
 			$categories = '';
 		}
+		
+		$post_content = $data['text'];
+		
+	    if (!empty($post['small_ico']))
+	    	$post_content = '<img src="'.$post['small_ico'].'" align="left" />'.$post_content;
+		    	
 		$post_data = array(
 		  'post_title'    	=> $data['name'],
-		  'post_content'  	=> $data['text'],
+		  'post_content'  	=> $post_content,
 		  'post_date'      	=> $data['date'],
 		  'post_date_gmt'  	=> $data['date'],
 		  'post_type'      	=> $type,
@@ -274,7 +280,7 @@ function postLink($start = false){
 	
 	if (!$start)
 		$start = 0;
-	$end = 50;
+	$end = 100;
 
 	$count_post = $wpdb->get_var("SELECT COUNT(*) FROM `wp_posts` WHERE `post_status` = 'publish' ");
 	$posts = $wpdb->get_results("SELECT `ID`, `post_title`, `post_content`, `post_excerpt` FROM `wp_posts` WHERE `post_status`  = 'publish' ORDER BY `ID` LIMIT $start , $end", 'ARRAY_A');
@@ -322,14 +328,11 @@ function postLink($start = false){
 				
 		    }
 		    
-		    $img_ico = '';
-		    if (!empty($post['small_ico']))
-		    	$img_ico .= '<img src="'.$post['small_ico'].'" align="left" />';
 		    	
 			$my_post = array(
 				'ID'           => $post['ID'],
 			    'post_title'   => $post['post_title'],
-			    'post_content' => $img_ico.$post_content,
+			    'post_content' => $post_content,
 			);
 			
 			// Update the post into the database
