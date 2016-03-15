@@ -118,13 +118,13 @@ function ConvertCategory($start=false){
 	global $wpdb;
 	if (!$start)
 		$start = 0;
-	$end = 100;
+	$end = 50;
 	$count_category = $wpdb->get_var("SELECT COUNT(*) FROM `categories` WHERE status > 0");
 
 	$categories = $wpdb->get_results("SELECT * FROM `categories` WHERE `status` > 0 ORDER BY `parent` ASC LIMIT $start , $end", 'ARRAY_A');
 	
 	foreach ($categories as $category) {
-		
+/*		
 		if ( $term_id = category_exists($category['name']) ) {
 			
 			$wpdb->insert(
@@ -134,6 +134,7 @@ function ConvertCategory($start=false){
 			);
 			
 		} else {
+*/		
 			$parent = $wpdb->get_var("SELECT `term_id` FROM `category_to_terms` WHERE `category_id` = '".$category['parent']."'");
 			if( $term_id = wp_create_category($category['name'], $parent) )
 				$wpdb->insert(
@@ -143,7 +144,7 @@ function ConvertCategory($start=false){
 				);
 				
 				
-		}
+//		}
 		
 	}
 	$count_added_category = $wpdb->get_var("SELECT COUNT(*) FROM `category_to_terms`");
@@ -184,24 +185,29 @@ function ConvertPost($start=false){
 	global $wpdb;
 	if (!$start)
 		$start = 0;
-	$end = 100;
+	$end = 50;
 	$count_data = $wpdb->get_var("SELECT COUNT(*) FROM `data` WHERE status > 0");
 	$datas = $wpdb->get_results("SELECT * FROM `data` WHERE `status` > 0 ORDER BY `id` LIMIT $start , $end", 'ARRAY_A');
 	
 	foreach ($datas as $data) {
 			
-		$categories = $wpdb->get_var("SELECT GROUP_CONCAT(`term_id` SEPARATOR ',') as `string` from `category_to_terms` WHERE `category_id` = '".$data['category']."' OR `category_id` = '".$data['subject']."' ");
+//		$categories = $wpdb->get_var("SELECT GROUP_CONCAT(`term_id` SEPARATOR ',') as `string` from `category_to_terms` WHERE `category_id` = '".$data['category']."' OR `category_id` = '".$data['subject']."' ");
+
+		$cat1 = $wpdb->get_var("SELECT `term_id` from `category_to_terms` WHERE `category_id` = '".$data['category']."'");
+		$cat2 = $wpdb->get_var("SELECT `term_id` from `category_to_terms` WHERE `category_id` = '".$data['subjectsel']."' ");
+		
+//		echo  $cat1.', ';
+//		echo  $cat2.'<br/>';
+		
+//		$categories = $wpdb->get_var("SELECT GROUP_CONCAT(`term_id` SEPARATOR ',') from `category_to_terms` WHERE `category_id` = '".$data['category']."' OR `category_id` = '".$data['subjectsel']."' ");
 //		$tags = $wpdb->get_var("SELECT GROUP_CONCAT(`tag_id` SEPARATOR ',') as string from `subject_to_tag` WHERE subject_id = ".$data['subject']." ");
 //		$count = $wpdb->get_var("SELECT COUNT(*) FROM `data` WHERE `status` > 0 AND `category` = ".$data['category']." ");
-// 		$page_id = array(69,85,86,87,88,92,93,94,96,116,2288,3218,3219,3388);
 		$page_id = array(165,191,175,173,171,172,166,167,164,143,3286,1206,1429,1681,1682,3287);		
 		$type = 'post';
-		
 		if (in_array($data['id'], $page_id)) {
 			$type = 'page';
 			$categories = '';
 		}
-		
 		$post_data = array(
 		  'post_title'    	=> $data['name'],
 		  'post_content'  	=> $data['text'],
@@ -211,10 +217,10 @@ function ConvertPost($start=false){
 		  'post_status'   	=> 'publish',
 		  'post_author'   	=> 1,
 		  'post_excerpt'   	=> $data['description'],
-		  'post_category' 	=> array( $categories )
+		  'post_category' 	=> (!empty($cat2))? array($cat1,$cat2) : array($cat1)
 		  
 		);
-		
+///*		
 		if( $post_id = wp_insert_post( $post_data ) )
 		
 			$wpdb->insert(
@@ -222,7 +228,7 @@ function ConvertPost($start=false){
 					array( 'data_id' => $data['id'], 'post_id' => $post_id ),
 					array( '%d', '%d' )
 				);
-
+//*/
 	}
 	
 //	$count_added_data = $wpdb->get_var("SELECT COUNT(*) FROM `data_to_post`");
@@ -268,7 +274,7 @@ function postLink($start = false){
 	
 	if (!$start)
 		$start = 0;
-	$end = 100;
+	$end = 50;
 
 	$count_post = $wpdb->get_var("SELECT COUNT(*) FROM `wp_posts` WHERE `post_status` = 'publish' ");
 	$posts = $wpdb->get_results("SELECT `ID`, `post_title`, `post_content`, `post_excerpt` FROM `wp_posts` WHERE `post_status`  = 'publish' ORDER BY `ID` LIMIT $start , $end", 'ARRAY_A');
@@ -297,7 +303,7 @@ function postLink($start = false){
 					if ($output['category'] > 0) {
 						echo 'CATEGORY: '.$output['category']."<br />";
 						$term = $wpdb->get_var("SELECT `slug` FROM `wp_terms` `wt`, `category_to_terms` `ct` WHERE `ct`.`category_id` = '".$output['category']."' AND `wt`.`term_id` = `ct`.`term_id`");
-						$post_content = str_replace($match[2], '/categogy/'.$term.'', $post_content);
+						$post_content = str_replace($match[2], '/?cat='.$term.'', $post_content);
 		
 					}
 					elseif ($output['id'] > 0 && $output['id'] > 0) {				
@@ -305,7 +311,7 @@ function postLink($start = false){
 						echo 'ACTION: '.$output['amp;action']."<br />";
 						
 						$post_id = $wpdb->get_var("SELECT `post_id` FROM `data_to_post` WHERE `data_id` = '".$output['id']."' ");
-						$post_content = str_replace($match[2], '/post/'.$post_id, $post_content);
+						$post_content = str_replace($match[2], '/?p='.$post_id, $post_content);
 						
 					}
 					echo '<div>Link was: '.$parset['query'].'</div>';
@@ -315,11 +321,16 @@ function postLink($start = false){
 				}
 				
 		    }
-			  $my_post = array(
-			      'ID'           => $post['ID'],
-			      'post_title'   => $post['post_title'],
-			      'post_content' => $post_content,
-			  );
+		    
+		    $img_ico = '';
+		    if (!empty($post['small_ico']))
+		    	$img_ico .= '<img src="'.$post['small_ico'].'" align="left" />';
+		    	
+			$my_post = array(
+				'ID'           => $post['ID'],
+			    'post_title'   => $post['post_title'],
+			    'post_content' => $img_ico.$post_content,
+			);
 			
 			// Update the post into the database
 			wp_update_post( $my_post );

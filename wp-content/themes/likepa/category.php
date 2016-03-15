@@ -32,7 +32,7 @@ get_header(); ?>
 
 				<?php /* Start the Loop */ ?>
 				<?php while ( have_posts() ) : the_post(); ?>
-					<?php if ($_SESSION['unset_post'] > 0 &&  $_SESSION['unset_post'] != get_the_ID()) :?>
+					<?php // if ($_SESSION['unset_post'] > 0 &&  $_SESSION['unset_post'] != get_the_ID()) :?>
 
 					<?php
 						/* Include the Post-Format-specific template for the content.
@@ -40,7 +40,7 @@ get_header(); ?>
 						get_template_part( 'loop', get_post_format() );
 					?>
 
-					<?php endif; ?>
+					<?php // endif; ?>
 				<?php endwhile; ?>
 
 				<?php likepa_pagination(); ?>

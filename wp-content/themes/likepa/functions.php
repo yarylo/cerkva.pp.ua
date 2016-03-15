@@ -104,8 +104,8 @@ function likepa_pagination($pages = '', $range = 3) {   /* handle pagination for
 		{
 			//echo "<div class=\"pagination\"><span>Page ".$paged." of ".$pages."</span>";
 			echo "<div class=\"pagination\">";
-			if($paged > 2 && $paged > $range+1 && $showitems < $pages) echo "<a href='".get_pagenum_link(1)."'>&laquo; First</a>";
-			if($paged > 1 && $showitems < $pages) echo "<a href='".get_pagenum_link($paged - 1)."'>&lsaquo; Previous</a>";
+			if($paged > 2 && $paged > $range+1 && $showitems < $pages) echo "<a href='".get_pagenum_link(1)."'>&laquo; Перша</a>";
+			if($paged > 1 && $showitems < $pages) echo "<a href='".get_pagenum_link($paged - 1)."'>&lsaquo; Попередня</a>";
 	 
 			for ($i=1; $i <= $pages; $i++)
 			{
@@ -115,8 +115,8 @@ function likepa_pagination($pages = '', $range = 3) {   /* handle pagination for
 				}
 			}
 	 
-			if ($paged < $pages && $showitems < $pages) echo "<a href=\"".get_pagenum_link($paged + 1)."\">Next &rsaquo;</a>";
-			if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) echo "<a href='".get_pagenum_link($pages)."'>Last &raquo;</a>";
+			if ($paged < $pages && $showitems < $pages) echo "<a href=\"".get_pagenum_link($paged + 1)."\">Наступна &rsaquo;</a>";
+			if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) echo "<a href='".get_pagenum_link($pages)."'>Остання &raquo;</a>";
 			echo "</div>\n";
 		}
 	} //  likepa_pagination
@@ -129,8 +129,8 @@ function likepa_content_nav( $nav_id ) {
 	if ( $wp_query->max_num_pages > 1 ) : ?>
 		<nav id="<?php echo $nav_id; ?>">
 			<h3 class="assistive-text"><?php _e( 'Post navigation', 'likepa' ); ?></h3>
-			<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Older posts', 'likepa' ) ); ?></div>
-			<div class="nav-next"><?php previous_posts_link( __( 'Newer posts <span class="meta-nav">&rarr;</span>', 'likepa' ) ); ?></div>
+			<div class="nav-previous"><?php next_posts_link( __( '<span class="meta-nav">&larr;</span> Попередня', 'likepa' ) ); ?></div>
+			<div class="nav-next"><?php previous_posts_link( __( 'Наступна <span class="meta-nav">&rarr;</span>', 'likepa' ) ); ?></div>
 		</nav><!-- #nav-above -->
 	<?php endif;
 }
